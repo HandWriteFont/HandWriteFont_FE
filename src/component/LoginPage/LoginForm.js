@@ -24,6 +24,7 @@ const LoginForm = () => {
                     </S.Form>
                     <S.DeleteAll><img src="asset/image/X.png" alt="x"/></S.DeleteAll>
                 </S.FormWrapper>
+                <S.LoginBtn>로그인</S.LoginBtn>
             </S.LoginPlate>
         </PageWrapper>
     )

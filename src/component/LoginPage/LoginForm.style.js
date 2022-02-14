@@ -48,3 +48,17 @@ export const DeleteAll = styled.div`
     cursor: pointer;
     background: #fff;
 `
+
+export const LoginBtn = styled.div`
+    cursor: pointer;
+    width: 160px;
+    height: 50px;
+    background: #000;
+    color: #fff;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    margin-top: 40px;
+`
