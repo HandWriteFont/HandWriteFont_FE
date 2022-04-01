@@ -8,6 +8,7 @@ const HeaderWrapper = styled.div`
     display: flex;
     flex-direction: column;
     font-family: NotoSansKR;
+    margin-bottom: 60px;
 `
 const LogoWrapper = styled(Link)`
     width: 216px;

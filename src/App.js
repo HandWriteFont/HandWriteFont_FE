@@ -13,23 +13,28 @@ import FourthPannel from "./component/FontMake/FourthPage_CompleteFont";
 import SecondPannel from "./component/FontMake/SecondPannel_Upload";
 import ThirdPannel from "./component/FontMake/ThirdPannel_Loading";
 import './App.css'
+import Header from './component/Public/Header';
 function App() {
   return (
+    <>
+    <Header/>
     <Routes>
-      <Route path='/' element={<MainPage/>}/>
-      <Route path='/login' element={<LoginPage/>}/>
-      <Route path='/lookout' element={<LookOutPage/>}/>
-      <Route path='/signup' element={<SignPage/>}/>
-      <Route path='/fontcreate/*' element={<FontMakePage/>}>
-        <Route index element={<FirsrtPannel/>}/>
-        <Route path="second" element={<SecondPannel/>}/>
-        <Route path="third" element={<ThirdPannel/>}/>
-        <Route path="fourth" element={<FourthPannel/>}/>
-        <Route path="fifth" element={<FifthPannel/>}/>
-        <Route path='final' element={<FinalPannel/>}/>
-      </Route>
-      <Route path='/mypage' element={<MyPage/>}/>
-    </Routes>
+    <Route path='/' element={<MainPage/>}/>
+    <Route path='/login' element={<LoginPage/>}/>
+    <Route path='/lookout' element={<LookOutPage/>}/>
+    <Route path='/signup' element={<SignPage/>}/>
+    <Route path='/fontcreate/*' element={<FontMakePage/>}>
+      <Route index element={<FirsrtPannel/>}/>
+      <Route path="second" element={<SecondPannel/>}/>
+      <Route path="third" element={<ThirdPannel/>}/>
+      <Route path="fourth" element={<FourthPannel/>}/>
+      <Route path="fifth" element={<FifthPannel/>}/>
+      <Route path='final' element={<FinalPannel/>}/>
+    </Route>
+    <Route path='/mypage' element={<MyPage/>}/>
+  </Routes>
+  </>
+    
   );
 }
 
