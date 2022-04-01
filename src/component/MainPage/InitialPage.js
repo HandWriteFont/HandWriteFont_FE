@@ -72,6 +72,7 @@ const IntorduceBox = styled.div`
 
 `
 const IntroduceText = styled.span`
+    width: 90%;
     display: block;
     font-size: 24px;
     @media screen and (max-width: 1050px){
