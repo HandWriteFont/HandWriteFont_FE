@@ -6,19 +6,15 @@ import InitialPage from "../component/MainPage/InitialPage";
 import VideoPage from "../component/MainPage/VideoPage";
 const MainPageWrapper = styled.div`
     width: 100vw;
-    height: 1080px;
-    position: absolute;
-    min-width: 1902px;
-    max-width: 1902px;
 `
 
 const MainPage = () => {
     return (
         <MainPageWrapper>
-        <Header/>
-        <InitialPage/>
-        <VideoPage/>
-        <DescriptionPage/>
+            <Header/>
+            {/* <InitialPage/>
+            <VideoPage/>
+            <DescriptionPage/> */}
         </MainPageWrapper>
     )
 }

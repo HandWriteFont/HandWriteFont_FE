@@ -10,7 +10,7 @@ import ThirdPannel from "../component/FontMake/ThirdPannel_Loading";
 import Header from "../component/Public/Header";
 
 const PageWrapper = styled.div`
-    width: 100%;
+    width: 100vw;
     height: 937px;
     background: #000;
 `

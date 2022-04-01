@@ -12,7 +12,7 @@ import FirsrtPannel from "./component/FontMake/FirstPannel_DownTemplete";
 import FourthPannel from "./component/FontMake/FourthPage_CompleteFont";
 import SecondPannel from "./component/FontMake/SecondPannel_Upload";
 import ThirdPannel from "./component/FontMake/ThirdPannel_Loading";
-
+import './App.css'
 function App() {
   return (
     <Routes>
