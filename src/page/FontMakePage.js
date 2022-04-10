@@ -21,7 +21,7 @@ const FontMakePage = () => {
             <Routes>
                 <Route path="/" element={<FirsrtPannel/>}/>
                 <Route path="/second" element={<SecondPannel/>}/>
-                <Route path="/third" element={<ThirdPannel/>}/>
+                {/* <Route path="/third" element={<ThirdPannel/>}/> */}
                 <Route path="/fourth" element={<FourthPannel/>}/>
                 <Route path="/fifth" element={<FifthPannel/>}/>
                 <Route path="/final" element={<FinalPannel/>}/>

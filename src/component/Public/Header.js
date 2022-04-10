@@ -45,8 +45,8 @@ const Header = () => {
             <HeaderMenuList>
                 <Menu to='/fontcreate' location={location.pathname==='/'?1:0}>폰트 만들기</Menu>
                 <Menu to='/lookout' location={location.pathname==='/'?1:0}>둘러보기</Menu>
-                <Menu to='/login' location={location.pathname==='/'?1:0}>로그인</Menu>
-                <Menu to='/signup' location={location.pathname==='/'?1:0}>회원가입</Menu>
+                <Menu to='/login' location={location.pathname==='/'?1:0}>마이페이지</Menu>
+                <Menu to='/signup' location={location.pathname==='/'?1:0}>로그아웃</Menu>
             </HeaderMenuList>
         </HeaderWrapper>
     )

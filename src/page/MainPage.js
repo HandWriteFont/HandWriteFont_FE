@@ -13,7 +13,6 @@ const MainPage = () => {
     return (
         <MainPageWrapper>
             <InitialPage/>
-
         </MainPageWrapper>
     )
 }
