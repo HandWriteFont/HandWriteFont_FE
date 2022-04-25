@@ -3,7 +3,6 @@ import styled from "styled-components";
 import * as S from './SignForm.style'
 import * as P from '../Public/FormStyle'
 import { useDispatch, useSelector } from "react-redux";
-import { changeField, initializeForm, register } from "../../store/auth";
 import { useEffect } from "react";
 const SignFormPageWrapper = styled.div`
     width: 1920px;
@@ -23,13 +22,6 @@ const SignForm = () => {
 
     const onChange = (e) => {
         const {value, name} = e.target;
-        dispatch(
-            changeField({
-                form: 'register',
-                key: name,
-                value
-            })
-        )
     }
     const [signInfo,setInfo] = useState({
         name:null,
@@ -49,7 +41,6 @@ const SignForm = () => {
                 alert('패스워드가 서로 다릅니다')
                 return;
             }
-            dispatch(register({username, password, name, nickname}));
         // }else{
         //     if(!permitSign.emailDuplicate){
         //         alert('E-Mail 중복 확인을 해주세요')
@@ -63,9 +54,6 @@ const SignForm = () => {
         // }
     }
 
-    useEffect(() => {
-        dispatch(initializeForm('register'));
-    },[dispatch])
 
     useEffect(() => {
         if(authError){

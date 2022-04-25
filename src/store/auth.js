@@ -1,94 +1,63 @@
-import {createAction, handleActions} from 'redux-actions';
-import produce from 'immer'
-import * as authAPI from '../api/auth';
-import createRequestSaga, { createRequestActionType } from './createRequestSaga';
+import { createAction, handleActions } from 'redux-actions';
+import createRequestSaga, { createRequestSagaActionTypes } from './createRequestSaga';
 import { takeLatest } from '@redux-saga/core/effects';
-const CHANGE_FIELD = 'auth/CHANGE_FIELD'
-const INITIALIZE_FORM = 'auth/INITIALIZE_FORM'
+import { setCookie } from '../component/Shared/Cookies';
+import { setAccessTokenOnHeader } from '../api/logined';
+import * as authAPI from '../api/auth';
 
+const [LOGIN, LOGIN_SUCESS, LOGIN_FAILURE] = createRequestSagaActionTypes('auth/LOGIN');
+const [REFRESH, REFRESH_SUCESS, REFRESH_FAILURE] = createRequestSagaActionTypes('auth/REFRESH');
 
-
-const [REGISTER, REGISTER_SUCCESS, REGISTER_FAILURE] = createRequestActionType('auth/REGISTER')
-const [LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE] = createRequestActionType('auth/LOGIN')
-
-export const changeField = createAction(
-  CHANGE_FIELD,
-  ({form, key, value}) => ({
-    form,
-    key,
-    value
-  })
-);
-
-export const initializeForm = createAction(INITIALIZE_FORM, form => form)
-
-export const register = createAction(REGISTER, ({username, password, name, nickname}) => ({
-  username,
+export const login = createAction(LOGIN, ({ account, password }) => ({
+  account,
   password,
-  name,
-  nickname
-}))
+}));
+export const refresh = createAction(REFRESH);
 
-export const login = createAction(LOGIN, ({username, password}) => ({
-  username,
-  password
-}))
-
-const registerSaga = createRequestSaga(REGISTER, authAPI.register)
-const loginSaga = createRequestSaga(LOGIN, authAPI.login)
-export function* authSaga(){
-  yield takeLatest(REGISTER, registerSaga)
-  yield takeLatest(LOGIN, loginSaga)
+const loginSaga = createRequestSaga(LOGIN, authAPI.login);
+export function* authSaga() {
+  yield takeLatest(LOGIN, loginSaga);
+}
+const refreshSaga = createRequestSaga(REFRESH, authAPI.refresh);
+export function* refreshLoginSaga() {
+  yield takeLatest(REFRESH, refreshSaga);
 }
 
 const initialState = {
-  register: {
-    username: '',
-    password: '',
-    passwordConfirm: '',
-    name: '',
-    nickname: ''
-  },
-  login: {
-    username: '',
-    password: '',
-  },
-  auth: null,
-  authError: null
-}
+  isLoggedIn: false,
+  authError: null,
+};
 
 const auth = handleActions(
   {
-    [CHANGE_FIELD]: (state, {payload: {form, key, value}}) => 
-      produce(state, draft => {
-        draft[form][key] = value;
+    [LOGIN_SUCESS]: (state, { payload: token }) => ({
+      ...state,
+      authError: null,
+      token: setCookie('refresh_token', `${token.refresh_token}`, {
+        path: '/',
       }),
-    [INITIALIZE_FORM]: (state, {payload: {form}}) => ({
-      ...state,
-      [form]: initialState[form]
+      token: setAccessTokenOnHeader(token.access_token),
+      isLoggedIn: true,
     }),
-
-    [REGISTER_SUCCESS]: (state, {patyload: auth}) => ({
+    [LOGIN_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      authError: error,
+    }),
+    [REFRESH_SUCESS]: (state, { payload: token }) => ({
       ...state,
       authError: null,
-      auth
+      token: setCookie('refresh_token', `${token.refresh_token}`, {
+        path: '/',
+      }),
+      token: setAccessTokenOnHeader(token.access_token),
+      isLoggedIn: true,
     }),
-    [REGISTER_FAILURE]: (state, {payload: error}) => ({
+    [REFRESH_FAILURE]: (state, { payload: error }) => ({
       ...state,
-      authError: error
+      authError: error,
     }),
-
-    [LOGIN_SUCCESS]: (state, {patyload: auth}) => ({
-      ...state,
-      authError: null,
-      auth
-    }),
-    [LOGIN_FAILURE]: (state, {payload: error}) => ({
-      ...state,
-      authError: error
-    })
   },
   initialState
 );
 
-export default auth
+export default auth;

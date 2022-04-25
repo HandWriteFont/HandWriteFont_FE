@@ -1,10 +1,6 @@
-import client from "./client"
+import logined from './logined';
+import axios from 'axios';
+// export const login = ({ account, password }) => logined.post('user/login', { account, password });
+export const login = ( {account, password} ) => axios.post('https://www.mecallapi.com/api/login', { username:account, password });
 
-export const login = ({username, password}) => {
-    client.post(`/api/v1/users/login`,{username, password})
-}
-
-export const register = ({ username, password, name, nickname }) => {
-    client.post('/api/v1/users/signup', {username, password, name, nickname})
-}
-
+export const refresh = () => logined.post('user/refresh');

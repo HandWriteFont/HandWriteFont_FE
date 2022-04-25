@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import auth, { changeField, initializeForm, login } from "../../store/auth";
+import auth, { login } from "../../store/auth";
 import * as S from './LoginForm.style';
 
 const PageWrapper = styled.div`
@@ -11,23 +11,30 @@ const PageWrapper = styled.div`
     height: 937px;
 `
 const LoginForm = () => {
-    const {form} = useSelector(({auth}) => ({
-        form: auth.login
-    }))
     const dispatch = useDispatch();
     const [loginInfo, setInfo] = useState({
-        id: null,
+        account: null,
         password: null
     })
     const onChange = (e) => {
-        const {value, name} = e.target;
-        dispatch(
-            changeField({
-                form: 'login',
-                key: name,
-                value
-            })
-        )
+        const name = e.target.name;
+        switch(name){
+            case 'account':
+                setInfo({
+                    ...loginInfo,
+                    account: e.target.value
+                })
+                break;
+            case 'password':
+                setInfo({
+                    ...loginInfo,
+                    password: e.target.value
+                })
+                break;
+            default:
+                break;
+        }
+console.log(loginInfo)
     }
     // const inputId = (e) => {
     //     setInfo({
@@ -46,20 +53,11 @@ const LoginForm = () => {
     //     })
     // }
     const clickLogin = () => {
-        // if(!loginInfo.id || !loginInfo.password){
-        //     alert('로그인정보를 입력해주세요')
-        // }
-        // if(loginInfo.id && loginInfo.password){
-        //     console.log(loginInfo)
-        //     dispatch(login({
-        //         username: loginInfo.id, 
-        //         password: loginInfo.password
-        //     }))
-        //     console.log(loginInfo)
-
-        // }
-        const {username, password} = form
-        dispatch(login({username, password}))
+        console.log(loginInfo.account,loginInfo.password)
+        dispatch(login({
+            account:loginInfo.account,
+            password:loginInfo.password}
+            ))
     }
     useEffect(() => {
         dispatch(initializeForm('login'))
@@ -71,11 +69,11 @@ const LoginForm = () => {
                 <S.FormWrapper>
                     <S.Form>
                         <S.FormName>ID</S.FormName>
-                        <S.FormInput onChange={onChange} name='username' value={form.username}/>
+                        <S.FormInput onChange={onChange} name='account'/>
                     </S.Form>
                     <S.Form>
                         <S.FormName>PassWord</S.FormName>
-                        <S.FormInput type="password" onChange={onChange} name='password' value={form.password}/>
+                        <S.FormInput type="password" onChange={onChange} name='password'/>
                     </S.Form>
                 </S.FormWrapper>
                 <S.SubmitBtn onClick={clickLogin}>로그인</S.SubmitBtn>
